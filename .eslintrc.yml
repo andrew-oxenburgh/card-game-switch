@@ -11,7 +11,16 @@ parserOptions:
   sourceType: module
 plugins:
   - react
-rules: {}
+rules:
+  indent:
+    - warn
+    - 4
+  quotes:
+    - error
+    - single
+  semi:
+    - error
+    - never
 settings:
   react:
     version: detect
