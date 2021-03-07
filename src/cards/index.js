@@ -108,7 +108,7 @@ const cards = {
     queenH,
     queenS,
     blueBack,
-    redBack
+    redBack,
 }
 
 export default cards
