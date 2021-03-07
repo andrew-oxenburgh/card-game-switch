@@ -4,9 +4,9 @@ import './App.css'
 
 import cards from './cards'
 import * as PropTypes from 'prop-types'
+import * as R from 'ramda'
 
 const VALUES = {
-    1: 'one',
     2: 'two',
     3: 'three',
     4: 'four',
@@ -16,6 +16,7 @@ const VALUES = {
     8: 'eight',
     9: 'nine',
     10: 'ten',
+    T: 'ten',
     j: 'jack',
     J: 'jack',
     q: 'queen',
@@ -26,48 +27,98 @@ const VALUES = {
     A: 'ace'
 }
 
+const smallest = (1 / 2)
+
+const SIZING = {
+    'x-sm': 0.5 * smallest,
+    sm: smallest,
+    small: smallest,
+    medium: 2 * smallest,
+    large: 4 * smallest,
+    'x-large': 8 * smallest,
+    '1x': smallest,
+    '2x': 2 * smallest,
+    '3x': 3 * smallest,
+    '4x': 4 * smallest,
+    '5x': 5 * smallest,
+    '6x': 6 * smallest,
+    '7x': 7 * smallest,
+    '8x': 8 * smallest
+}
+
+const SUITS = {
+    C: 'Clubs',
+    S: 'Spades',
+    D: 'Diamond',
+    H: 'Hearts'
+}
+
 PlayingCard.propTypes = {
     suit: PropTypes.string,
-    value: PropTypes.number | PropTypes.string,
-    back: PropTypes.string
+    faceValue: PropTypes.string,
+    back: PropTypes.string,
+    size: PropTypes.string
 }
 
 function PlayingCard (props) {
-    const width = 224.22508
-    const height = 312.80777
-    let card
+    let width = 224.22508
+    if (props.size) {
+        width = width * SIZING[props.size]
+    }
+
+    let card, alt
 
     if (props.back) {
         if (props.back.toLowerCase().charAt(0) === 'r') {
-            card = 'url("' + cards.redBack + '")'
+            card = cards.redBack
+            alt = 'red card'
         } else {
-            card = 'url("' + cards.blueBack + '")'
+            card = cards.blueBack
+            alt = 'blue card'
         }
     } else {
-        let cardValue = props.value
+        let cardValue = props.faceValue
         const cardSuit = props.suit.charAt(0)
 
-        if (Number.isInteger(cardValue) || cardValue.length === 1) {
-            cardValue = VALUES[cardValue]
-        }
+        cardValue = VALUES[cardValue + '']
 
         const cardName = cardValue + cardSuit
-        card = 'url("' + cards[cardName] + '")'
+        card = cards[cardName]
+
+        alt = `${cardValue} of ${SUITS[cardSuit].toLowerCase()}`
     }
     return (
-        <div style={{ width: width, height: height, background: card }}/>
+        <img alt={alt} src={card} style={{ width: width, height: 'auto' }}/>
     )
 }
 
 function App () {
+    const allValues = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
+
+    // eslint-disable-next-line react/display-name
+    const handleSuit = (suit) => (val) => {
+        const key = '' + val + 'of' + suit
+        console.log('key = ' + key)
+
+        return (
+            <PlayingCard key={key} faceValue={val + ''} suit={suit + ''} size="x-sm"/>
+        )
+    }
+
+    // const cards = []
+    const cards = R.map(handleSuit('H'))(allValues)
+    cards.push(<br style={{ height: '1em' }}/>)
+    cards.push(R.map(handleSuit('S'))(allValues))
+    cards.push(<br style={{ height: '1em' }}/>)
+    cards.push(R.map(handleSuit('D'))(allValues))
+    cards.push(<br style={{ height: '1em' }}/>)
+    cards.push(R.map(handleSuit('C'))(allValues))
+
     return (
         <div className="App">
             <h1>Welcome to Switch. The Card Game
-                <PlayingCard back="red"/>
-                <PlayingCard back="blue"/>
-                <PlayingCard suit="C" value="ten"/>
-                <PlayingCard suit="D" value={6}/>
             </h1>
+            {cards}
         </div>
     )
 }
