@@ -1,7 +1,29 @@
 {
   "name": "card-game-switch",
   "description": "a way to play the old card game, switch, between friends",
-  "keywords": ["cards", "game", "switch"],
+  "keywords": [
+    "playing cards",
+    "playing-cards",
+    "card game",
+    "cards",
+    "game",
+    "switch"
+  ],
+  "homepage": "https://github.com/andrew-oxenburgh/card-game-switch",
+  "bugs": {
+    "url": "https://github.com/andrew-oxenburgh/card-game-switch/issues",
+    "email": "andrew.oxenburgh@gmail.com"
+  },
+  "licence": "LGPL-2.1-only",
+  "author": {
+    "name": "Andrew Oxenburgh",
+    "email": "andrew.oxenburgh@gmail.com"
+  },
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrew-oxenburgh/card-game-switch.git"
+  },
   "version": "0.1.0",
   "private": false,
   "dependencies": {
