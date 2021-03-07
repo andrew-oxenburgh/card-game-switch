@@ -50,6 +50,9 @@ const SIZING = {
     '8x': 8 * smallest,
 }
 
+/**
+ * avaiable suits, as default
+ */
 const SUITS = {
     C: 'Clubs',
     S: 'Spades',
@@ -64,7 +67,14 @@ PlayingCard.propTypes = {
     size: PropTypes.string,
     margin: PropTypes.string,
 }
-
+/**
+ * A single PlayingCard
+ * @param {string} suit - H, S, D, C. Case insensitive. May use full name
+ * @param {string} faceValue - 2-10, t, j, q, k, a. Case insensitive.
+ * @param {string} back - 2-10, t, j, q, k, a. Case insensitive.
+ * @param {string} size - 1x - 8x
+ * @param {string} margin - 1x - 8x
+ */
 function PlayingCard (props) {
     console.log('props = ' + JSON.stringify(props, null, 4))
 
@@ -105,6 +115,11 @@ function PlayingCard (props) {
     )
 }
 
+/**
+ * A <Hand/> of <PlayingCard/>'s
+ * @param {string} size - 1x - 8x
+ * @param {string} margin - 1x - 8x - if no margin provided, default to size
+ */
 function Hand (props) {
     return <div>
         {

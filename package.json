@@ -32,6 +32,7 @@
     "@testing-library/user-event": "^12.8.1",
     "bootstrap": "^4.6.0",
     "fs.promises": "^0.1.2",
+    "jsdoc": "^3.6.6",
     "ramda": "^0.21.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.1",
@@ -46,7 +47,8 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "lint": "eslint src --fix",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "docs": "jsdoc -c jsdoc.conf.json"
   },
   "eslintConfig": {
     "extends": [
