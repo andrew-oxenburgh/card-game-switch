@@ -53,8 +53,13 @@ const SUITS = {
 }
 
 PlayingCard.propTypes = {
-    suit: PropTypes.oneOf(['h', 's', 'd', 'c', 'hearts', 'spades', 'diamonds', 'clubs']),
+    suit: PropTypes.oneOf([
+        'h', 's', 'd', 'c',
+        'H', 'S', 'D', 'C',
+        'hearts', 'spades', 'diamonds', 'clubs']),
     faceValue: PropTypes.oneOf([
+        1,
+        2, 3, 4, 5, 6, 7, 8, 9, 10,
         '1',
         '2',
         '3',
@@ -65,10 +70,16 @@ PlayingCard.propTypes = {
         '8',
         '9',
         '10',
-        'jack',
+        't',
+        'j',
         'q',
         'k',
         'a',
+        'T',
+        'J',
+        'Q',
+        'K',
+        'A',
     ]),
     back: PropTypes.oneOf(['r', 'b', 0]),
     size: PropTypes.oneOf([
@@ -121,16 +132,17 @@ PlayingCard.defaultProps = {
  * @param {string} margin - 1x - 8x
  */
 export default function PlayingCard (props) {
-    console.log('props = ' + JSON.stringify(props, null, 4))
-
     let width = 224.22508
     let margin = 0
 
-    if (props.size) {
+    if (props.size && SIZING[props.size]) {
         width = width * SIZING[props.size]
+        if (width === 'NaN') {
+            width = 0
+        }
     }
 
-    if (props.margin) {
+    if (props.margin && SIZING[props.margin]) {
         margin = (width / 10) * SIZING[props.margin]
     }
 
